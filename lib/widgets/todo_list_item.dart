@@ -6,12 +6,15 @@ class TodoListItem extends StatelessWidget {
 
   final Function() checkDone;
 
-  TodoListItem(this.todo,this.checkDone);
+  TodoListItem(this.todo, this.checkDone);
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      title: Text(todo.title),
+      title: Text(todo.title,
+          style: todo.state == TodoState.Completed
+              ? TextStyle(decoration: TextDecoration.lineThrough)
+              : null),
       leading: Checkbox(
         tristate: false,
         value: todo.state == TodoState.Completed,

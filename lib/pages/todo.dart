@@ -35,7 +35,8 @@ class _TodoPageState extends State<TodoPage> {
             itemCount: _todos.length,
             itemBuilder:(context,int i ) => new TodoListItem(_todos[i],(){
               setState(() {
-                _todos.add(new TodoItem(_todos[i].title, TodoState.Completed));
+                _todos.replaceRange(i, i+1, [new TodoItem(_todos[i].title, TodoState.Completed)]);
+               //todos.add(new TodoItem(_todos[i].title, TodoState.Completed));
               });
             })),
       ),
