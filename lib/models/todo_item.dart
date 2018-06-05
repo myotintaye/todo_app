@@ -1,13 +1,8 @@
-enum TodoState {
-  Pending,
-  Completed
-}
+enum TodoState { Pending, Completed }
 
 class TodoItem {
   final String title;
-  final TodoState state = TodoState.Pending;
+  final TodoState state;
 
-
-  TodoItem(this.title);
-
+  TodoItem(this.title, [this.state = TodoState.Pending]);
 }

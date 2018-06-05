@@ -4,7 +4,9 @@ import 'package:todo_app/models/todo_item.dart';
 class TodoListItem extends StatelessWidget {
   final TodoItem todo;
 
-  TodoListItem(this.todo);
+  final Function() checkDone;
+
+  TodoListItem(this.todo,this.checkDone);
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +15,9 @@ class TodoListItem extends StatelessWidget {
       leading: Checkbox(
         tristate: false,
         value: todo.state == TodoState.Completed,
-        onChanged: (_) {},
+        onChanged: (_) {
+          checkDone();
+        },
       ),
     );
   }

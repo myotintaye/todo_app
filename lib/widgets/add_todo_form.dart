@@ -1,6 +1,18 @@
 import 'package:flutter/material.dart';
 
-class AddTodoForm extends StatelessWidget {
+class AddTodoForm extends StatefulWidget {
+
+  final Function(String textInput) onAddItem;
+
+  AddTodoForm(this.onAddItem);
+
+  @override
+  _AddTodoFormState createState() => new _AddTodoFormState();
+}
+
+class _AddTodoFormState extends State<AddTodoForm> {
+  final textController = new TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return new Container(
@@ -11,6 +23,7 @@ class AddTodoForm extends StatelessWidget {
               Flexible(
                 child: new Container(
                   child: new TextField(
+                    controller: textController,
                     decoration: new InputDecoration(
                         contentPadding: const EdgeInsets.all(0.0),
                         border: InputBorder.none,
@@ -29,7 +42,10 @@ class AddTodoForm extends StatelessWidget {
                 ),
               ),
               SizedBox(width: 15.0,),
-              FloatingActionButton(child: Icon(Icons.add), onPressed: () {},),
+              FloatingActionButton(child: Icon(Icons.add), onPressed: () {
+                widget.onAddItem(textController.text);
+                textController.clear();
+              },),
             ])));
   }
 }

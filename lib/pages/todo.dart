@@ -33,7 +33,11 @@ class _TodoPageState extends State<TodoPage> {
         padding: const EdgeInsets.only(top: 10.0),
         child: ListView.builder(
             itemCount: _todos.length,
-            itemBuilder:(context,i ) => new TodoListItem(_todos[i])),
+            itemBuilder:(context,int i ) => new TodoListItem(_todos[i],(){
+              setState(() {
+                _todos.add(new TodoItem(_todos[i].title, TodoState.Completed));
+              });
+            })),
       ),
       floatingActionButton: _buildFAB(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -61,7 +65,13 @@ class _TodoPageState extends State<TodoPage> {
         });
 
         _scaffoldKey.currentState.showBottomSheet((context) {
-          return new AddTodoForm();
+          return new AddTodoForm((String textInput) {
+            print("calling add $textInput");
+            setState(() {
+              _todos.add(new TodoItem(textInput));
+
+            });
+          });
         }).closed.whenComplete((){
           setState(() {
             _isAddTodoOpen = false;
